@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>city</title>
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<script >
+	var result="";
+$(document).ready(function(){
+
+$.ajax({
+
+	url : 'https://indian-cities-api-nocbegfhqg.now.sh/cities',
+	success : function(data){
+		result=data;
+	}
+
+});
+
+$("#btnsearchcity").click(function(){
+
+    var contentc="";
+	var c=$("#cty").val();
+	for(item in result){
+		if(c==result[item].City){
+			contentc=result[item].City+" "+result[item].District+" "+result[item].State+"<br>";
+		}
+
+	}
+	$("#mydiv2").append(contentc);
+
+});
+
+
+
+
+$("#btn1").click(function(){
+
+	$.ajax({
+		url : 'https://indian-cities-api-nocbegfhqg.now.sh/cities',
+	success : function(data){
+		$("#mydiv").html("");
+	content="<table class='table table-bordered table-dark table-hover table-condensed table-striped' style='width:50%'><thead><tr><th scope='col'>CITY</th><th scope='col'>DISTRICT</th><th scope='col'>STATE</th></thead>";
+     for(index in data){
+     	content+="<tr><td>"+data[index].City+"</td> <td> "+data[index].District+"</td> <td> "+data[index].State+" </td> </tr>";
+     }
+
+     content+="</table>";
+    $("#mydiv").html(content);
+
+	}
+
+	});
+
+
+});
+
+
+});
+
+
+</script>
+
+
+</head>
+<body>
+<center><input type="text" placeholder="search city" id="cty">
+<button id="btnsearchcity">Search city</button></center><br>
+<center><button id="btn1">View All</button></center>
+<div id="mydiv2" align="center"></div>
+<div id="mydiv" align="center"></div>
+</body>
+</html>
